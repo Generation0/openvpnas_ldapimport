@@ -9,7 +9,7 @@ uri = input("LDAP Connection: ")
 user = input("Username: ")	 	 							
 password = getpass(prompt="Password: ", stream=None)	
 
-### IMPORTANT Change this Lines to set your Path to the Group Folder	
+### IMPORTANT Change this to set your Path to the Group Folder	
 ldap_group_path="OU=Users,OU=company GmbH,DC=domain ,DC=lan"
 ### Path to the Scripts Folder where you can find sacli
 o_path = "/usr/local/openvpn_as/scripts"
