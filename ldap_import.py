@@ -25,15 +25,13 @@ c = Connection(s, auto_bind = True, user=user, password=password, check_names=Tr
 # search for User/Person objects (for help look for ldap-queries)
 c.search(ldap_path,'(&(objectclass=user)(objectcategory=person))', SUBTREE, attributes = ['sAMAccountName'])
 response = c.response_to_json()
-print(response)
 result = c.result
 parsed_json = json.loads(response)
-print(ldap_path)
-print("importing", end=""),
+print("importing", end="")
 for entry in parsed_json['entries']:
 	ma_name = entry['attributes']['sAMAccountName']
-	print(".", end=""),
 	os.system(o_path+"/sacli --user %s --key conn_group --value '%s' UserPropPut" %(ma_name, group))
+	print(".", end="")
 print("\nimport finished")
 
 
