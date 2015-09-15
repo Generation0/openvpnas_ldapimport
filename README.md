@@ -7,9 +7,11 @@ Import Groups from LDAP into your OpenVPN Access Server
 
 Then copy the script into the script folder of openvpnas and launch the script in a virtual environment
 ```
+virtualenv -p python3 py3env
 cd py3env
 source bin/activate
 cd ..
+pip install ldap3
 python ldap_import
 ```
 

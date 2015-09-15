@@ -10,7 +10,7 @@ user = input("Username: ")
 password = getpass(prompt="Password: ", stream=None)	
 
 ### IMPORTANT Change this Lines to set your Path to the Group Folder	
-ldap_group_path="OU=Users,OU=Company,DC=company ,DC=local"
+ldap_group_path="OU=Users,OU=company GmbH,DC=domain ,DC=lan"
 ### Path to the Scripts Folder where you can find sacli
 o_path = "/usr/local/openvpn_as/scripts"
 
@@ -25,12 +25,14 @@ c = Connection(s, auto_bind = True, user=user, password=password, check_names=Tr
 # search for User/Person objects (for help look for ldap-queries)
 c.search(ldap_path,'(&(objectclass=user)(objectcategory=person))', SUBTREE, attributes = ['sAMAccountName'])
 response = c.response_to_json()
+print(response)
 result = c.result
 parsed_json = json.loads(response)
-print("importing"),
+print(ldap_path)
+print("importing", end=""),
 for entry in parsed_json['entries']:
 	ma_name = entry['attributes']['sAMAccountName']
-	print("."),
+	print(".", end=""),
 	os.system(o_path+"/sacli --user %s --key conn_group --value '%s' UserPropPut" %(ma_name, group))
 print("\nimport finished")
 
